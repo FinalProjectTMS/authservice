@@ -36,6 +36,10 @@ func (s *Server) SignUp(c *gin.Context) {
 		s.handleError(c, errors.Join(errs.ErrInvalidRequestBody, err))
 		return
 	}
+	if input.Username == "" || input.Password == "" || input.Email == "" {
+		s.handleError(c, errs.ErrFillAllFields)
+		return
+	}
 
 	if err := s.uc.UserCreater.CreateUser(c, domain.User{
 		Email:    input.Email,
@@ -75,6 +79,10 @@ func (s *Server) SignIn(c *gin.Context) {
 	var input SignInRequest
 	if err := c.ShouldBindJSON(&input); err != nil {
 		s.handleError(c, errors.Join(errs.ErrInvalidRequestBody, err))
+		return
+	}
+	if input.Username == "" || input.Password == "" {
+		s.handleError(c, errs.ErrFillAllFields)
 		return
 	}
 

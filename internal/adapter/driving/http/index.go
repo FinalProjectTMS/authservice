@@ -6,6 +6,8 @@ import (
 
 	"github.com/FinalProjectTMS/authservice/internal/config"
 	"github.com/FinalProjectTMS/authservice/internal/usecase"
+
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,6 +24,13 @@ func New(
 	uc *usecase.UseCases,
 ) *http.Server {
 	r := gin.New()
+
+	// FOR DEVELOPMENT PURPOSES ONLY
+	r.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"http://localhost:3000"},
+		AllowMethods: []string{"GET", "POST", "PUT", "DELETE"},
+		AllowHeaders: []string{"Content-Type", "Authorization", "X-Refresh-Token"},
+	}))
 
 	srv := &Server{
 		router: r,

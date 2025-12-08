@@ -12,4 +12,5 @@ var (
 	ErrEmailAlreadyExists          = errors.New("email already exists")
 	ErrIncorrectUsernameOrPassword = errors.New("incorrect username or password")
 	ErrInvalidToken                = errors.New("invalid token")
+	ErrFillAllFields               = errors.New("please fill all fields")
 )
